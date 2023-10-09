@@ -9,13 +9,20 @@ class Aplicacion:
         self.matriz = None
         self.grafo = None
         self.ventana = Tk()
-        self.ventana.geometry("650x550")
-        self.ventana.resizable(False, False)
+        self.ventana.geometry("1000x550")
         self.ventana.title("Problema del camino mínimo")
         self.ventana.config(background="#FFFFFF")
-        self.agregar_componentes()
-    
-    def agregar_componentes(self):
+        self.configurar_componentes()
+
+    def configurar_componentes(self):
+        # Centrar la ventana principal
+        self.ventana.update_idletasks()
+        ancho = self.ventana.winfo_width()
+        alto = self.ventana.winfo_height()
+        x = (self.ventana.winfo_screenwidth() // 2) - (ancho // 2)
+        y = (self.ventana.winfo_screenheight() // 2) - (alto // 2)
+        self.ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
+
         self.titulo = Label(text="Problema del Camino Minimo", font=("Arial", 32))
         self.titulo.place(x=0, y=0)
 
@@ -42,30 +49,52 @@ class Aplicacion:
             else:
                 self.matriz = generar_matriz(self.numero_nodo, False)
                 print(self.matriz)
-                dibujar_matriz(self.matriz)
+                self.ver_matriz()
         except:
             mb.showerror("Error", "Texto no válido")
-    
+
     def ingresar_matriz(self):
         try:
             self.numero_nodo = int(self.numero_entry.get())
             if self.numero_nodo < 5 or self.numero_nodo > 15:
                 mb.showerror("Error", "Ingrese un numero entre 5 y 15")
             else:
-                self.ventana.withdraw()
-                self.matriz = generar_matriz(self.numero_nodo, True)
+                self.ventana.iconify()
+                self.matriz= generar_matriz(self.numero_nodo, True)
                 self.ventana.deiconify()
                 print(self.matriz)
-                dibujar_matriz(self.matriz)
+                self.ver_matriz()
         except:
             mb.showerror("Error", "Texto no válido")
 
 
+    def ver_matriz(self):
+        formMatriz = Frame(self.ventana)
+        formMatriz.place(x=10, y=200)
+        # Crear etiquetas para los encabezados de columnas
+        for j in range(len(self.matriz)):
+            label = Label(formMatriz, text=f"{j}")
+            label.grid(row=0, column=j+1)
+
+        # Crear etiquetas para los encabezados de filas y valores
+        for i in range(len(self.matriz)):
+            # Encabezado de fila
+            label = Label(formMatriz, text=f"{i}")
+            label.grid(row=i+1, column=0)
+
+            # Valores
+            for j in range(len(self.matriz[i])):
+                entry = Entry(formMatriz, width=8)
+                entry.insert(0, str(self.matriz[i][j]))
+                entry.grid(row=i+1, column=j+1)
+
+
     def ver_grafo(self):
-        if self.matriz.all != None:
-            self.grafo = Grafo(self.matriz, [i for i in range(0, self.numero_nodo)])
-            self.grafo.mostrar_grafo()
-        else:
+        try:
+            if self.matriz.all != None:
+                self.grafo = Grafo(self.matriz, [i for i in range(0, self.numero_nodo)])
+                self.grafo.mostrar_grafo()
+        except:
             mb.showerror("Error", "Debe crear una matriz")
 
     def ejecutar(self):
