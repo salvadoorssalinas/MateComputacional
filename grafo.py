@@ -8,6 +8,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import simpledialog
 from tkinter import messagebox as mb
+from tkinter import PhotoImage
 
 def generar_matriz(n, manual):
     matriz = np.zeros((n, n))
