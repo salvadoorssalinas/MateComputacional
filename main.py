@@ -8,6 +8,7 @@ class Aplicacion:
         self.nodos = []
         self.formMatriz = None
         self.ventana.geometry("650x550")
+        self.ventana.resizable(False, False)
         self.ventana.title("Problema del camino mínimo")
         self.ventana.config(background="#FFFFFF")
         self.configurar_componentes()
@@ -21,44 +22,96 @@ class Aplicacion:
         y = (self.ventana.winfo_screenheight() // 2) - (alto // 2)
         self.ventana.geometry(f"{ancho}x{alto}+{x}+{y}")
 
-        # creación de labels, botones y entrys
-        self.titulo = Label(text="Problema del Camino Minimo", font=("Arial", 32))
-        self.titulo.place(x=0, y=0)
+        # imagen background
+        self.imagenbg = PhotoImage(file="images/fondo.png")
+        self.label_imagenbg = Label(self.ventana, image=self.imagenbg)
+        self.label_imagenbg.place(x=0, y=0)
+        self.label_imagenbg.pack()
 
-        self.numero_nodo_label = Label(text="Ingrese n (5 - 15):", font=("Arial", 12))
-        self.numero_nodo_label.place(x=22, y=70)
+        # creación de botones y entrys
+
+        self.btnTutorial = Button(self.ventana, text="Tutorial", command=self.tutorial, width="20", height="2")
+        self.btnTutorial.place(x=100, y=110)
+
+        self.btnIntegrantes = Button(self.ventana, text="Integrantes", command=self.integrantes, width="20", height="2")
+        self.btnIntegrantes.place(x=400, y=110)
 
         self.numero_nodo = StringVar()
         self.numero_entry = Entry(textvariable=self.numero_nodo, width="8")
-        self.numero_entry.place(x=22, y=100)
+        self.numero_entry.place(x=285, y=190)
 
         self.btnMatrizRandom = Button(self.ventana, text="Crear matriz aleatoria", command=self.crear_matriz, width="20", height="2")
-        self.btnMatrizRandom.place(x=50, y=130)
+        self.btnMatrizRandom.place(x=50, y=230)
 
         self.btnMatrizManual = Button(self.ventana, text="Ingresar matriz", command=self.ingresar_matriz, width="20", height="2")
-        self.btnMatrizManual.place(x=250, y=130)
+        self.btnMatrizManual.place(x=250, y=230)
 
         self.btnVerGrafo = Button(self.ventana, text="Ver Grafo", command=self.ver_grafo, width="20", height="2")
-        self.btnVerGrafo.place(x=450, y=130)
+        self.btnVerGrafo.place(x=450, y=230)
 
-        self.nodo1_label = Label(text="Nodo inicial", font=("Arial", 12))
-        self.nodo1_label.place(x=50, y=200)
         self.nodo1 = StringVar()
         self.nodo1entry = Entry(textvariable=self.nodo1, width="8")
-        self.nodo1entry.place(x=50, y=230)
+        self.nodo1entry.place(x=70, y=400)
 
-        self.nodo2_label = Label(text="Nodo final", font=("Arial", 12))
-        self.nodo2_label.place(x=150, y=200)
         self.nodo2 = StringVar()
         self.nodo2entry = Entry(textvariable=self.nodo2, width="8")
-        self.nodo2entry.place(x=150, y=230)
+        self.nodo2entry.place(x=190, y=400)
 
         self.btnCamino = Button(self.ventana, text="Hallar camino mínimo", command=self.camino_minimo, width="20", height="2")
-        self.btnCamino.place(x=250, y=200)
+        self.btnCamino.place(x=300, y=380)
 
+
+
+    def tutorial(self):
+        self.formTutorial = Toplevel()
+        self.formTutorial.geometry("400x400")
+        self.formTutorial.withdraw()
+
+        # centrar ventana
+        self.formTutorial.update_idletasks()
+        ancho = self.formTutorial.winfo_width()
+        alto = self.formTutorial.winfo_height()
+        x = (self.formTutorial.winfo_screenwidth() // 2) - (ancho // 2)
+        y = (self.formTutorial.winfo_screenheight() // 2) - (alto // 2)
+        self.formTutorial.geometry(f"{ancho}x{alto}+{x}+{y}")
+        
+        self.formTutorial.title("Tutorial")
+        self.formTutorial.resizable(False, False)
+
+        self.Tutorialbg = PhotoImage(file="images/tutorial.png")
+        self.label_Tutorialbg = Label(self.formTutorial, image=self.Tutorialbg)
+        self.label_Tutorialbg.place(x=0, y=0)
+        self.label_Tutorialbg.pack()
+
+        self.formTutorial.deiconify()
+        #mb.showinfo("Tutorial", "El problema del camino mínimo consiste en encontrar el camino de menor costo entre dos nodos de un grafo. Para ello, se utiliza el algoritmo de Dijkstra, el cual consiste en ir recorriendo los nodos del grafo, calculando el costo de llegar a cada uno de ellos desde el nodo inicial. Para ello, se utiliza una matriz de adyacencia, la cual contiene los costos de ir de un nodo a otro. El algoritmo de Dijkstra se basa en ir calculando el costo de llegar a cada nodo, y si el costo es menor al que ya se tenía, se actualiza el costo y el nodo anterior. Al finalizar el algoritmo, se obtiene el costo de llegar al nodo final, y el camino que se debe seguir para llegar a él.")
+        
+
+    def integrantes(self):
+        self.formIntegrantes = Toplevel()
+        self.formIntegrantes.geometry("400x400")
+        self.formIntegrantes.withdraw()
+
+        # centrar ventana
+        self.formIntegrantes.update_idletasks()
+        ancho = self.formIntegrantes.winfo_width()
+        alto = self.formIntegrantes.winfo_height()
+        x = (self.formIntegrantes.winfo_screenwidth() // 2) - (ancho // 2)
+        y = (self.formIntegrantes.winfo_screenheight() // 2) - (alto // 2)
+        self.formIntegrantes.geometry(f"{ancho}x{alto}+{x}+{y}")
+
+        self.formIntegrantes.title("Integrantes")
+        self.formIntegrantes.resizable(False, False)
+
+        self.Integrantesbg = PhotoImage(file="images/integrantes.png")
+        self.label_Integrantesbg = Label(self.formIntegrantes, image=self.Integrantesbg)
+        self.label_Integrantesbg.place(x=0, y=0)
+        self.label_Integrantesbg.pack()
+        
+        self.formIntegrantes.deiconify()
 
     def crear_matriz(self):
-        #try:
+        try:
             self.numero_nodo = int(self.numero_entry.get())
             if self.numero_nodo < 5 or self.numero_nodo > 15:
                 mb.showerror("Error", "Ingrese un numero entre 5 y 15")
@@ -66,7 +119,7 @@ class Aplicacion:
                 self.matriz = generar_matriz(self.numero_nodo, False)
                 print(self.matriz)
                 self.ver_matriz()
-        #except:
+        except:
             mb.showerror("Error", "Texto no válido")
 
     def ingresar_matriz(self):
