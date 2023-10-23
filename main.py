@@ -64,7 +64,7 @@ class Aplicacion:
 
     def tutorial(self):
         self.formTutorial = Toplevel()
-        self.formTutorial.geometry("400x400")
+        self.formTutorial.geometry("1017x594")
         self.formTutorial.withdraw()
 
         # centrar ventana
@@ -78,13 +78,12 @@ class Aplicacion:
         self.formTutorial.title("Tutorial")
         self.formTutorial.resizable(False, False)
 
-        self.Tutorialbg = PhotoImage(file="images/tutorial.png")
+        self.Tutorialbg = PhotoImage(file="images/instrucciones.png")
         self.label_Tutorialbg = Label(self.formTutorial, image=self.Tutorialbg)
         self.label_Tutorialbg.place(x=0, y=0)
         self.label_Tutorialbg.pack()
 
         self.formTutorial.deiconify()
-        #mb.showinfo("Tutorial", "El problema del camino mínimo consiste en encontrar el camino de menor costo entre dos nodos de un grafo. Para ello, se utiliza el algoritmo de Dijkstra, el cual consiste en ir recorriendo los nodos del grafo, calculando el costo de llegar a cada uno de ellos desde el nodo inicial. Para ello, se utiliza una matriz de adyacencia, la cual contiene los costos de ir de un nodo a otro. El algoritmo de Dijkstra se basa en ir calculando el costo de llegar a cada nodo, y si el costo es menor al que ya se tenía, se actualiza el costo y el nodo anterior. Al finalizar el algoritmo, se obtiene el costo de llegar al nodo final, y el camino que se debe seguir para llegar a él.")
         
 
     def integrantes(self):
